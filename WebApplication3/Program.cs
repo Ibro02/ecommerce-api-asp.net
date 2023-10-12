@@ -1,9 +1,20 @@
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.IdentityModel.Tokens.Jwt;
+
 
 var builder = WebApplication.CreateBuilder(args);
-
+//builder.Services.AddAuthentication(x =>
+//{
+//    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+//    x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+//}).AddJwtBearer(x =>
+//{
+//    x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters { }
+//});
+//@TODO - make JWT
 // Add services to the container.
-IServiceCollection serviceCollection = builder.Services.AddDbContext<WebApplication3.Data.DataContext>(options => options.UseSqlServer("DefaultConnection"));
+IServiceCollection serviceCollection = builder.Services.AddDbContext<WebApplication3.Data.DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
