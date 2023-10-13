@@ -18,11 +18,7 @@ namespace WebApplication3.Controllers
             _db = db;
            
         }
-        
-        //private List<User> _user = new List<User>() {
-        //new User(),
-        //new User_db.Users.Count()),"Eldar", "Dautovic","eldo@gmail.com", "eldo", "nevolja", "061-123-456", " ", "Mostar", "Bosna i Hercegovina")
-        //};
+
         // GET: api/<UserController>
         [HttpGet("/api/[controller]")]
         public ActionResult<List<User>> Get()

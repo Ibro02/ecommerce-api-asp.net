@@ -1,6 +1,4 @@
-﻿
-
-namespace WebApplication3.Helpers.DTO
+﻿namespace WebApplication3.Models
 {
     public class dtoRoles
     {

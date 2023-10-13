@@ -7,7 +7,7 @@ namespace WebApplication3.Data
     {
 
 
-        public DataContext(Microsoft.EntityFrameworkCore.DbContextOptions<DataContext> options) : base(options) { }
+        public DataContext(DbContextOptions<DataContext> options) : base(options) { }
         public DbSet<Models.User> Users => Set<Models.User>();
 
         public DbSet<Models.Role> Roles => Set<Models.Role>();
