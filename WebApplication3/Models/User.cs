@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
 namespace WebApplication3.Models
@@ -9,14 +10,15 @@ namespace WebApplication3.Models
         [Key]
         public int Id { get; set; }
 
+        [Required]
         public string FirstName { get; set; }
-
+        [Required]
         public string LastName { get; set; }
-
+        [Required]
         public string Email { get; set; }
-
-        public string Username { get; set; }    
-
+        [Required]
+        public string Username { get; set; }
+        [Required]
         public string Password { get; set; }
 
         [JsonIgnore]
@@ -29,9 +31,12 @@ namespace WebApplication3.Models
 
         public string Description { get; set; }
 
-        public string City { get; set; }
+        [ForeignKey("City")]
+        public int? CityId { get; set; }
 
-        public string Country { get; set; }
+        [AllowNull]
+        [JsonIgnore]
+        public City? City { get; set; } 
 
 
         public User()
@@ -44,8 +49,8 @@ namespace WebApplication3.Models
             Password = "12345";
             Phone = "061-882-273";
             Description = "Student";
-            City = "Travnik";
-            Country = "Bosna i Hercegovina";
+          //  City = "Travnik";
+  
    
             //@TODO - make roles, country and city objects as it is drawn on diagram 
         }
@@ -59,8 +64,8 @@ namespace WebApplication3.Models
             Password =password;
             Phone =phone;
             Description =description;
-            City =city;
-            Country = country;
+        //    City =city;
+ 
     
         }
     }

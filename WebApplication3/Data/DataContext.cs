@@ -12,6 +12,9 @@ namespace WebApplication3.Data
 
         public DbSet<Models.Role> Roles => Set<Models.Role>();
 
+        public DbSet<Models.City> Cities => Set<Models.City>();
+
+        public DbSet<Models.Country> Countries => Set<Models.Country>(); 
 
     }
 }

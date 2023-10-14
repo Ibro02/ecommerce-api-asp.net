@@ -67,6 +67,18 @@ namespace WebApplication3.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
+            var userList = _db.Users.ToList().Where(x=>x.Id == id);
+            if (userList != null) {
+                var user = userList.First();
+                user.CityId = int.Parse(value);
+    
+            _db.Users.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            }
+            
+
+        _db.SaveChanges();
+            
+          
         }
 
         // DELETE api/<UserController>/5
@@ -78,3 +90,4 @@ namespace WebApplication3.Controllers
         }
     }
 }
+    
