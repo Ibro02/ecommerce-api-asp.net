@@ -5,24 +5,25 @@
 namespace WebApplication3.Migrations
 {
     /// <inheritdoc />
-    public partial class cityCountry : Migration
+    public partial class countryCity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Cities_Countries_CountryId",
-                table: "Cities");
-
             migrationBuilder.AlterColumn<int>(
                 name: "CountryId",
                 table: "Cities",
                 type: "int",
-                nullable: false,
+                nullable: true,
                 defaultValue: 0,
                 oldClrType: typeof(int),
                 oldType: "int",
                 oldNullable: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cities_CountryId",
+                table: "Cities",
+                column: "CountryId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Cities_Countries_CountryId",
@@ -39,12 +40,10 @@ namespace WebApplication3.Migrations
             migrationBuilder.DropForeignKey(
                 name: "FK_Cities_Countries_CountryId",
                 table: "Cities");
-            migrationBuilder.AddForeignKey(
-                name: "FK_Cities_Countries_CountryId",
-                table: "Cities",
-                column: "CountryId",
-                principalTable: "Countries",
-                principalColumn: "Id");
+
+            migrationBuilder.DropIndex(
+                name: "IX_Cities_CountryId",
+                table: "Cities");
 
             migrationBuilder.AlterColumn<int>(
                 name: "CountryId",
@@ -53,7 +52,6 @@ namespace WebApplication3.Migrations
                 nullable: true,
                 oldClrType: typeof(int),
                 oldType: "int");
-
         }
     }
 }

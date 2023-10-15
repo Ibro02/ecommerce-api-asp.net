@@ -5,18 +5,18 @@
 namespace WebApplication3.Migrations
 {
     /// <inheritdoc />
-    public partial class cityCountry : Migration
+    public partial class salesman3 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Cities_Countries_CountryId",
-                table: "Cities");
+                name: "FK_Products_Salesmen_SalesmanId",
+                table: "Products");
 
             migrationBuilder.AlterColumn<int>(
-                name: "CountryId",
-                table: "Cities",
+                name: "SalesmanId",
+                table: "Products",
                 type: "int",
                 nullable: false,
                 defaultValue: 0,
@@ -25,10 +25,10 @@ namespace WebApplication3.Migrations
                 oldNullable: true);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Cities_Countries_CountryId",
-                table: "Cities",
-                column: "CountryId",
-                principalTable: "Countries",
+                name: "FK_Products_Salesmen_SalesmanId",
+                table: "Products",
+                column: "SalesmanId",
+                principalTable: "Salesmen",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
         }
@@ -37,23 +37,23 @@ namespace WebApplication3.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Cities_Countries_CountryId",
-                table: "Cities");
-            migrationBuilder.AddForeignKey(
-                name: "FK_Cities_Countries_CountryId",
-                table: "Cities",
-                column: "CountryId",
-                principalTable: "Countries",
-                principalColumn: "Id");
+                name: "FK_Products_Salesmen_SalesmanId",
+                table: "Products");
 
             migrationBuilder.AlterColumn<int>(
-                name: "CountryId",
-                table: "Cities",
+                name: "SalesmanId",
+                table: "Products",
                 type: "int",
                 nullable: true,
                 oldClrType: typeof(int),
                 oldType: "int");
 
+            migrationBuilder.AddForeignKey(
+                name: "FK_Products_Salesmen_SalesmanId",
+                table: "Products",
+                column: "SalesmanId",
+                principalTable: "Salesmen",
+                principalColumn: "Id");
         }
     }
 }

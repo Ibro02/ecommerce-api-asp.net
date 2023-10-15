@@ -71,8 +71,7 @@ namespace WebApplication3.Controllers
             if (userList != null) {
                 var user = userList.First();
                 user.CityId = int.Parse(value);
-    
-            _db.Users.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+               _db.Users.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             }
             
 
