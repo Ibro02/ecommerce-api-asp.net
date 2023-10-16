@@ -36,9 +36,11 @@ namespace WebApplication3.Models
 
         [AllowNull]
         [JsonIgnore]
-        public City? City { get; set; } 
+        public City? City { get; set; }
 
-
+        //[AllowNull]
+        //[JsonIgnore]
+        //public List<Salesman> Salesmen { get; } = new();
         public User()
         {
             Id = 0;

@@ -24,7 +24,7 @@ namespace WebApplication3.Controllers
             if (listOfCities.Any()) 
             return Ok(listOfCities);
 
-            return Ok("There is no cities in database!");
+            return NotFound("There is no cities in database!");
         }
 
         [HttpGet("{id}")]

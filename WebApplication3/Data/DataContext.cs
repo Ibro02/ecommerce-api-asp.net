@@ -6,7 +6,14 @@ namespace WebApplication3.Data
     public class DataContext : DbContext
     {
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Models.Salesman>()
+                .HasAlternateKey(x => new { x.SalesmanId, x.ProductId });
 
+            modelBuilder.Entity<Models.Order>()
+                .HasAlternateKey(x => new { x.Id, x.CustomerId, x.ProductId });
+        }
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
         public DbSet<Models.User> Users => Set<Models.User>();
 
@@ -21,6 +28,12 @@ namespace WebApplication3.Data
         public DbSet<Models.Status> Statuses => Set<Models.Status>();
 
         public DbSet<Models.Salesman> Salesmen => Set<Models.Salesman>();
+
+        public DbSet<Models.ProductCategory> Categories => Set<Models.ProductCategory>();
+
+        public DbSet<Models.Order> Orders => Set<Models.Order>();
+
+
 
 
     }

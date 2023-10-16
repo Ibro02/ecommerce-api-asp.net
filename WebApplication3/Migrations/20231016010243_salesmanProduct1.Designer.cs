@@ -12,8 +12,8 @@ using WebApplication3.Data;
 namespace WebApplication3.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231015004930_salesman2")]
-    partial class salesman2
+    [Migration("20231016010243_salesmanProduct1")]
+    partial class salesmanProduct1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,7 +68,7 @@ namespace WebApplication3.Migrations
                     b.ToTable("Countries");
                 });
 
-            modelBuilder.Entity("WebApplication3.Models.Product", b =>
+            modelBuilder.Entity("WebApplication3.Models.ProductCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -76,33 +76,13 @@ namespace WebApplication3.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("SalesmanId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("StatusID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UnitsInStocks")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("SalesmanId");
-
-                    b.HasIndex("StatusID");
-
-                    b.ToTable("Products");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("WebApplication3.Models.Role", b =>
@@ -120,25 +100,6 @@ namespace WebApplication3.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
-                });
-
-            modelBuilder.Entity("WebApplication3.Models.Salesman", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("UserId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Salesmen");
                 });
 
             modelBuilder.Entity("WebApplication3.Models.Status", b =>
@@ -218,32 +179,6 @@ namespace WebApplication3.Migrations
                         .IsRequired();
 
                     b.Navigation("Country");
-                });
-
-            modelBuilder.Entity("WebApplication3.Models.Product", b =>
-                {
-                    b.HasOne("WebApplication3.Models.Salesman", "Salesman")
-                        .WithMany()
-                        .HasForeignKey("SalesmanId");
-
-                    b.HasOne("WebApplication3.Models.Status", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusID");
-
-                    b.Navigation("Salesman");
-
-                    b.Navigation("Status");
-                });
-
-            modelBuilder.Entity("WebApplication3.Models.Salesman", b =>
-                {
-                    b.HasOne("WebApplication3.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("WebApplication3.Models.User", b =>

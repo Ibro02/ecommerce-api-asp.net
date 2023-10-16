@@ -12,8 +12,8 @@ using WebApplication3.Data;
 namespace WebApplication3.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231015004401_salesman1")]
-    partial class salesman1
+    [Migration("20231016011157_salesmanProduct2")]
+    partial class salesmanProduct2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -87,7 +87,7 @@ namespace WebApplication3.Migrations
                     b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("SellerId")
+                    b.Property<int?>("ProductCategoryId")
                         .HasColumnType("int");
 
                     b.Property<int?>("StatusID")
@@ -96,16 +96,30 @@ namespace WebApplication3.Migrations
                     b.Property<int>("UnitsInStocks")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductCategoryId");
 
                     b.HasIndex("StatusID");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("WebApplication3.Models.ProductCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("WebApplication3.Models.Role", b =>
@@ -133,13 +147,19 @@ namespace WebApplication3.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("UserId")
+                    b.Property<int?>("ProductId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SalesmanId")
                         .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("SalesmanId");
 
                     b.ToTable("Salesmen");
                 });
@@ -225,28 +245,34 @@ namespace WebApplication3.Migrations
 
             modelBuilder.Entity("WebApplication3.Models.Product", b =>
                 {
+                    b.HasOne("WebApplication3.Models.ProductCategory", "Category")
+                        .WithMany()
+                        .HasForeignKey("ProductCategoryId");
+
                     b.HasOne("WebApplication3.Models.Status", "Status")
                         .WithMany()
                         .HasForeignKey("StatusID");
 
-                    b.HasOne("WebApplication3.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Category");
 
                     b.Navigation("Status");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("WebApplication3.Models.Salesman", b =>
                 {
-                    b.HasOne("WebApplication3.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                    b.HasOne("WebApplication3.Models.Product", "Product")
+                        .WithMany("Salesmen")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("WebApplication3.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("SalesmanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
 
                     b.Navigation("User");
                 });
@@ -264,6 +290,11 @@ namespace WebApplication3.Migrations
                     b.Navigation("City");
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("WebApplication3.Models.Product", b =>
+                {
+                    b.Navigation("Salesmen");
                 });
 
             modelBuilder.Entity("WebApplication3.Models.Role", b =>
