@@ -5,7 +5,7 @@ using WebApplication3.Models;
 
 namespace WebApplication3.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class SalesmanController : ControllerBase
     {
@@ -19,7 +19,7 @@ namespace WebApplication3.Controllers
 
 
         [HttpGet]
-        public ActionResult<List<Salesman>> Get() 
+        public ActionResult<List<Salesman>> GetAll() 
         {
         if (_db.Salesmen.Any())
             {

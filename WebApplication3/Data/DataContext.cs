@@ -14,8 +14,8 @@ namespace WebApplication3.Data
             modelBuilder.Entity<Models.Order>()
                 .HasAlternateKey(x => new { x.Id, x.CustomerId, x.ProductId });
 
-            modelBuilder.Entity<Models.Comment>()
-                .HasAlternateKey(x => new { x.Id, x.UserId, x.ProductId });
+           modelBuilder.Entity<Models.Comment>()
+               .HasAlternateKey(x => new { x.Id, x.UserId, x.ProductId });
         }
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
         public DbSet<Models.User> Users => Set<Models.User>();

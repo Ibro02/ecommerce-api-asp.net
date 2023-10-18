@@ -6,7 +6,7 @@ using WebApplication3.Models;
 namespace WebApplication3.Controllers
 {
     //[Authorize]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -21,7 +21,7 @@ namespace WebApplication3.Controllers
 
         // GET: api/<UserController>
         [HttpGet("/api/[controller]")]
-        public ActionResult<List<User>> Get()
+        public ActionResult<List<User>> GetAll()
         {
             try
             {

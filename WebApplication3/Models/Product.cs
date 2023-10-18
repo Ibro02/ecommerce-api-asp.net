@@ -39,5 +39,9 @@ namespace WebApplication3.Models
         [AllowNull]
         [JsonIgnore]
         public List<Salesman> Salesmen { get; set; } = new();
+
+
+        [AllowNull]
+        public List<Comment> Comments { get; set; }
     }
 }

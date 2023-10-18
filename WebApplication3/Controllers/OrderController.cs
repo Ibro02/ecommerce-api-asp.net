@@ -6,7 +6,7 @@ using WebApplication3.Models;
 
 namespace WebApplication3.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class OrderController : ControllerBase
     {
@@ -19,7 +19,7 @@ namespace WebApplication3.Controllers
         }
         // GET: api/<OrderController>
         [HttpGet]
-        public ActionResult<List<Order>> Get()
+        public ActionResult<List<Order>> GetAll()
         {
             if (_db.Orders.Any())
                 return Ok(_db.Orders.ToList());

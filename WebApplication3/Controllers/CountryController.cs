@@ -5,7 +5,7 @@ using WebApplication3.Models;
 
 namespace WebApplication3.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CountryController : ControllerBase
     {
@@ -18,7 +18,7 @@ namespace WebApplication3.Controllers
 
         //GET ALL /api/Country
         [HttpGet]
-        public ActionResult<List<Country>> Get()
+        public ActionResult<List<Country>> GetAll()
         {
             var listOfCountries = _db.Countries.ToList();
             if (listOfCountries.Any())

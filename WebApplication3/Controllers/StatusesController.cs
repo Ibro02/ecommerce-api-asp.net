@@ -5,7 +5,7 @@ using WebApplication3.Models;
 
 namespace WebApplication3.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class StatusesController : ControllerBase
     {
@@ -17,7 +17,7 @@ namespace WebApplication3.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Status>> Get() 
+        public ActionResult<List<Status>> GetAll() 
         { 
         var listOfStatuses = _db.Statuses.ToList();
         if (listOfStatuses.Any())

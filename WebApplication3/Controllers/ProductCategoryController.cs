@@ -5,7 +5,7 @@ using WebApplication3.Models;
 
 namespace WebApplication3.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ProductCategoryController : ControllerBase
     {
@@ -17,7 +17,7 @@ namespace WebApplication3.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<ProductCategory>> Get()
+        public ActionResult<List<ProductCategory>> GetAll()
         {
            if (_db.Categories.Any())
                 return Ok(_db.Categories.ToList());

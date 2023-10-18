@@ -7,7 +7,7 @@ using WebApplication3.Models;
 namespace WebApplication3.Controllers
 {
     // [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class RoleController : ControllerBase
     {
@@ -20,7 +20,7 @@ namespace WebApplication3.Controllers
         }
         // GET: api/<ValuesController>
         [HttpGet]
-        public ActionResult<List<Role>> Get()
+        public ActionResult<List<Role>> GetAll()
         {
          try
             {
