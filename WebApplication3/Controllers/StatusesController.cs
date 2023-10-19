@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication3.Data;
 using WebApplication3.Models;
 
 namespace WebApplication3.Controllers
 {
+    
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class StatusesController : ControllerBase

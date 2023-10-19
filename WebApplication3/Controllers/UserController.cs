@@ -5,7 +5,6 @@ using WebApplication3.Models;
 
 namespace WebApplication3.Controllers
 {
-    //[Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -20,6 +19,7 @@ namespace WebApplication3.Controllers
         }
 
         // GET: api/<UserController>
+        [Authorize]
         [HttpGet("/api/[controller]")]
         public ActionResult<List<User>> GetAll()
         {
@@ -41,7 +41,9 @@ namespace WebApplication3.Controllers
       
         }
 
+
         // GET api/Users
+        [Authorize]
         [HttpGet("{id}")]
         public ActionResult<User> Get(int id)
         {
@@ -57,13 +59,22 @@ namespace WebApplication3.Controllers
 
         // POST api/Users
         [HttpPost]
-        public void Post([FromBody] User value)
+        public ActionResult Post([FromBody] User value)
         {
+            try
+            {
             _db.Add(value);
             _db.SaveChanges();
+                return Ok(value);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // PUT api/User/5
+        [Authorize]
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
@@ -81,6 +92,7 @@ namespace WebApplication3.Controllers
         }
 
         // DELETE api/<UserController>/5
+        [Authorize]
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

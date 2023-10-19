@@ -16,8 +16,7 @@ namespace WebApplication3.Models
         public string LastName { get; set; }
         [Required]
         public string Email { get; set; }
-        [Required]
-        public string Username { get; set; }
+        public string? Username { get; set; } = string.Empty;
         [Required]
         public string Password { get; set; }
 
@@ -25,11 +24,13 @@ namespace WebApplication3.Models
         public Role? Role { get; set; }
 
         [ForeignKey("Id")]
-        public int? RoleId { get; set; }
+        public int? RoleId { get; set; } = 1;
 
-        public string Phone { get; set; }
+        [AllowNull]
+        public string? Phone { get; set; } = string.Empty;
 
-        public string Description { get; set; }
+        [AllowNull]
+        public string? Description { get; set; } = string.Empty;
 
         [ForeignKey("City")]
         public int? CityId { get; set; }
@@ -44,13 +45,13 @@ namespace WebApplication3.Models
         public User()
         {
             Id = 0;
-            FirstName = "Ibrahim";  
-            LastName = "hodzic";
-            Email = "ibrahim@gmail.com";
-            Username = "ibro";
-            Password = "12345";
-            Phone = "061-882-273";
-            Description = "Student";
+            FirstName = "";  
+            LastName = "";
+            Email = "";
+            Username = "";
+            Password = "";
+            Phone = "";
+            Description = "";
           //  City = "Travnik";
   
    

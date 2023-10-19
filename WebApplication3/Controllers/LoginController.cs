@@ -1,4 +1,5 @@
 ﻿using Azure.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -47,7 +48,7 @@ _config = configuration;
             {
                 listOfUsers.Add(u);
             }
-            if (listOfUsers.Where(x => x.Username == login.Username) == null)
+            if (!listOfUsers.Where(x => x.Username == login.Username && x.Password == login.Password).Any())
                 return NotFound();
             
                 string token = CreateToken(login);
