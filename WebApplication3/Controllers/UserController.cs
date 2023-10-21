@@ -17,6 +17,15 @@ namespace WebApplication3.Controllers
             _db = db;
            
         }
+        [HttpGet]
+        public ActionResult GetAllUsernames() { 
+        var listOfUsernames = new List<string>();
+        foreach (var user in _db.Users)
+            {
+                listOfUsernames.Add(user.Username);
+            }
+            return Ok(listOfUsernames);
+        }
 
         // GET: api/<UserController>
         [Authorize]

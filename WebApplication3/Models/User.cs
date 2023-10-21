@@ -24,7 +24,7 @@ namespace WebApplication3.Models
         public Role? Role { get; set; }
 
         [ForeignKey("Id")]
-        public int? RoleId { get; set; } = 1;
+        public int? RoleId { get; set; } = 2;
 
         [AllowNull]
         public string? Phone { get; set; } = string.Empty;
@@ -52,6 +52,7 @@ namespace WebApplication3.Models
             Password = "";
             Phone = "";
             Description = "";
+     
           //  City = "Travnik";
   
    
