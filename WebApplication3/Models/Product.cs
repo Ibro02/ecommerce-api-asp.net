@@ -20,6 +20,8 @@ namespace WebApplication3.Models
 
         public int UnitsInStocks { get; set; }
 
+        //public List<byte[]> Images { get; set; }
+
         [ForeignKey("ProductCategory")]
         public int? ProductCategoryId { get; set; }
 

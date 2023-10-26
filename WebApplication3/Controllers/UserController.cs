@@ -39,7 +39,7 @@ namespace WebApplication3.Controllers
                 {
                     return Ok(users);
                 }
-                    return Ok("There are no users in DataBase!");
+                    return NotFound("There are no users in DataBase!");
             }
             catch (Exception ex)
             {
@@ -85,13 +85,20 @@ namespace WebApplication3.Controllers
         // PUT api/User/5
         [Authorize]
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put([FromBody] User value, int id)
         {
-            var userList = _db.Users.ToList().Where(x=>x.Id == id);
+            var userList = _db.Users.ToList().Where(x=>x.Id == id).FirstOrDefault<User>();
             if (userList != null) {
-                var user = userList.First();
-                user.CityId = int.Parse(value);
-               _db.Users.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+
+                userList.FirstName = value.FirstName;
+                userList.LastName = value.LastName;
+                userList.Email = value.Email;
+                userList.Password = value.Password;
+                userList.Description = value.Description;
+                userList.Phone = value.Phone;   
+                userList.CityId = value.CityId;
+                userList.Username = value.Username;
+
             }
             
 
