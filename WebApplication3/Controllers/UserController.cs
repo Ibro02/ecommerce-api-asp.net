@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using WebApplication3.Data;
+using WebApplication3.Helpers.DTO;
 using WebApplication3.Models;
 
 namespace WebApplication3.Controllers
@@ -85,26 +87,36 @@ namespace WebApplication3.Controllers
         // PUT api/User/5
         [Authorize]
         [HttpPut("{id}")]
-        public void Put([FromBody] User value, int id)
+        public void Put([FromBody] dtoUser value, int id)
         {
-            var userList = _db.Users.ToList().Where(x=>x.Id == id).FirstOrDefault<User>();
-            if (userList != null) {
 
-                userList.FirstName = value.FirstName;
-                userList.LastName = value.LastName;
-                userList.Email = value.Email;
-                userList.Password = value.Password;
-                userList.Description = value.Description;
-                userList.Phone = value.Phone;   
-                userList.CityId = value.CityId;
-                userList.Username = value.Username;
+
+            var userList = _db.Users.ToList().Where(x => x.Id == id).FirstOrDefault<User>();
+            if (userList != null)
+            {
+                Console.WriteLine(value);
+                if (!value.FirstName.IsNullOrEmpty()) userList.FirstName = value?.FirstName;
+                else userList.FirstName += value.FirstName;
+                if (!value.LastName.IsNullOrEmpty()) userList.LastName = value?.LastName;
+                else userList.LastName += value.LastName;
+                if (!value.Email.IsNullOrEmpty()) userList.Email = value?.Email;
+                else userList.Email += value.Email;
+                if (!value.Password.IsNullOrEmpty()) userList.Password = value?.Password;
+                else userList.Password += value.Password;       
+                if (!value.Description.IsNullOrEmpty()) userList.Description = value?.Description;
+                else userList.Description += value.Description;
+                if (!value.Phone.IsNullOrEmpty()) userList.Phone = value?.Phone;
+                else userList.Phone += value.Phone;
+                if (value.CityId!=null) userList.CityId = value?.CityId;
+                if (!value.Username.IsNullOrEmpty()) userList.Username = value?.Username;
+                else userList.Username += value.Username;
 
             }
-            
 
-        _db.SaveChanges();
-            
-          
+
+            _db.SaveChanges();
+
+
         }
 
         // DELETE api/<UserController>/5
