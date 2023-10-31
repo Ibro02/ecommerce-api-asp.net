@@ -87,7 +87,7 @@ namespace WebApplication3.Controllers
         // PUT api/User/5
         [Authorize]
         [HttpPut("{id}")]
-        public void Put([FromBody] dtoUser value, int id)
+        public ActionResult<User> Put([FromBody] dtoUser value, int id)
         {
 
 
@@ -110,11 +110,12 @@ namespace WebApplication3.Controllers
                 if (value.CityId!=null) userList.CityId = value?.CityId;
                 if (!value.Username.IsNullOrEmpty()) userList.Username = value?.Username;
                 else userList.Username += value.Username;
+            _db.SaveChanges();
 
+                return Ok(userList);
             }
 
-
-            _db.SaveChanges();
+            return BadRequest("Something went wrong");
 
 
         }

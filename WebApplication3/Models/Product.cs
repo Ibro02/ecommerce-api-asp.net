@@ -20,7 +20,12 @@ namespace WebApplication3.Models
 
         public int UnitsInStocks { get; set; }
 
-        //public List<byte[]> Images { get; set; }
+      //  public List<byte[]> Images { get; set; }
+        public int ProductImageId { get; set; }
+
+        [AllowNull]
+        [JsonIgnore]
+        public List<ProductImage> ProductImages { get; set;}
 
         [ForeignKey("ProductCategory")]
         public int? ProductCategoryId { get; set; }

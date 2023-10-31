@@ -16,6 +16,9 @@ namespace WebApplication3.Data
 
            modelBuilder.Entity<Models.Comment>()
                .HasAlternateKey(x => new { x.Id, x.UserId, x.ProductId });
+
+            modelBuilder.Entity<Models.ProductImage>()
+                .HasAlternateKey(x => new { x.Id, x.ProductId, x.ImageId });
         }
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
         public DbSet<Models.User> Users => Set<Models.User>();
@@ -36,7 +39,13 @@ namespace WebApplication3.Data
 
         public DbSet<Models.Order> Orders => Set<Models.Order>();
 
-      public DbSet<Models.Comment> Comments => Set<Models.Comment>(); 
+      public DbSet<Models.Comment> Comments => Set<Models.Comment>();
+
+        public DbSet<Models.Image> Images => Set<Models.Image>();
+
+        public DbSet<Models.ProductImage> ProductImages => Set<Models.ProductImage>();
+
+
 
 
 
