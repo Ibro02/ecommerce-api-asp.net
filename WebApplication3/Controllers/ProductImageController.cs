@@ -45,15 +45,16 @@ namespace WebApplication3.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddNewProductImage(dtoProductImage image)
+        public ActionResult AddNewProductImage(List<dtoProductImage> images)
         {
-            if (image.Image == null)
+            if (images.Count == 0)
                 return BadRequest("First select image!");
-            if (_db.Products.Where(x => x.Id == image.ProductId).ToList().IsNullOrEmpty())
-            {
-                return BadRequest("You tried to add image to non-existing product!");
-            }
 
+            foreach (var image in  images)
+            {
+            if (_db.Products.Where(x => x.Id == image.ProductId).ToList().IsNullOrEmpty())
+                return BadRequest("You tried to add image to non-existing product!");
+            
             var newImage = new Image() { Images = Encoding.ASCII.GetBytes(image.Image) } ;
             _db.Images.Add(newImage);
           
@@ -65,6 +66,9 @@ namespace WebApplication3.Controllers
 
             _db.SaveChanges();
 
+            }
+
+   
             return Ok("Success!");
         }
 
