@@ -9,6 +9,8 @@ namespace WebApplication3.Helpers.DTO
 
         public string Image { get; set; }
 
+        public List<int> ImageIds { get; set; }
+
         public int ProductId { get; set; }
         
     }

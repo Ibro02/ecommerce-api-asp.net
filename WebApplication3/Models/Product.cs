@@ -9,6 +9,8 @@ namespace WebApplication3.Models
 {
     public class Product
     {
+       
+
         [Key]
         public int Id { get; set; }
 
@@ -20,12 +22,13 @@ namespace WebApplication3.Models
 
         public int UnitsInStocks { get; set; }
 
-      //  public List<byte[]> Images { get; set; }
-        public int ProductImageId { get; set; }
+        //  public List<byte[]> Images { get; set; }
+        //[AllowNull]
+       // public int? ImageId { get; set; }
 
         [AllowNull]
         [JsonIgnore]
-        public List<ProductImage> ProductImages { get; set;}
+        public List<Image>? Images { get; set;}
 
         [ForeignKey("ProductCategory")]
         public int? ProductCategoryId { get; set; }
@@ -48,7 +51,42 @@ namespace WebApplication3.Models
         public List<Salesman> Salesmen { get; set; } = new();
 
 
+        [JsonIgnore]
         [AllowNull]
-        public List<Comment> Comments { get; set; }
+        public List<Comment>? Comments { get; set; }
+
+
+        //public Product(Product product)
+        //{
+        //    if (product != null)
+        //    {
+     
+        //        Name = product.Name;
+        //        Description = product.Description;
+        //        Price = product.Price;
+        //        UnitsInStocks = product.UnitsInStocks;
+        //        ProductCategoryId = product.ProductCategoryId;
+        //        Status = product.Status;
+        //        StatusId = product.StatusId;
+        //        Images = null;
+        //    }
+        //}
+
+        //public Product(dtoProducts product)
+        //{
+        //    if (product != null)
+        //    {
+             
+        //        Name = product.Name;
+        //        Description = product.Description;
+        //        Price = product.Price;
+        //        UnitsInStocks = product.UnitsInStocks;
+        //        ProductCategoryId = product.ProductCategoryId;
+        //        Status = product.Status;
+        //        StatusId = product.StatusId;
+        //        Images = null;
+                
+        //    }
+        //}
     }
 }

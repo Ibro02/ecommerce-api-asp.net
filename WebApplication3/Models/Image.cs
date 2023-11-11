@@ -10,11 +10,9 @@ namespace WebApplication3.Models
         public int Id { get; set; }
         public byte[] Images { get; set; }
 
-        public int ProductImageId { get; set; }
-
-        [AllowNull]
         [JsonIgnore]
-        public List<ProductImage> ProductImage { get; set; }
+        [AllowNull]
+        public List<Product> Products{ get; set; }
        
     }
 }

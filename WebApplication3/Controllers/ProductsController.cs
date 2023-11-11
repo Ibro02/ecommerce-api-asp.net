@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 using WebApplication3.Data;
+using WebApplication3.Helpers.DTO;
 using WebApplication3.Models;
 
 namespace WebApplication3.Controllers
@@ -21,11 +24,22 @@ namespace WebApplication3.Controllers
 
         [HttpGet]
         public ActionResult<List<Product>> GetAll() {
-        var listOfProducts = _db.Products.ToList();
+            var listOfImages = _db.Images;
+            var listOfProducts = _db.ProductImages.Include(x => x.Product).Include(x => x.Image).Select(x => new dtoProductImage
+            {
+               ProductId = x.ProductId,
+               Image = x.ImageId.ToString()
+               
+            }).ToList();
+       
 
         if (listOfProducts.Any())
             {
-                return Ok(listOfProducts);
+                return Ok(listOfProducts.Select(x=> new
+                {
+                    Product = x.ProductId,
+                    Images = listOfProducts.Where(y=>y.ProductId == x.ProductId).Select(z => new {Images = z.Image})
+                }).DistinctBy(x=>x.Product));
             }
 
         return NoContent();
@@ -45,18 +59,54 @@ namespace WebApplication3.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Product> Post(Product product)
+         public ActionResult<dtoProducts> Post(dtoProducts product) 
         {
-            try
+            if (product != null) 
+            try 
             {
-            _db.Products.Add(product);
-            _db.SaveChanges();
-            return Ok(product);
-            }
+                    var _product = new Product()
+                    {
+                        Name = product.Name,
+                        Description = product.Description,
+                        Price = product.Price,
+                        StatusId = product.StatusId,
+                        UnitsInStocks = product.UnitsInStocks,
+                        ProductCategoryId = product.ProductCategoryId,
+                        Status = product.Status,
+                        Images = new List<Image>() // Create an empty list to store images
+                    };
+                    _db.Products.Add(_product);
+                    _db.SaveChanges(); // Save the product to generate its ID
+
+                    foreach (var imageBytes in product.Images)
+                    {
+                        if (imageBytes != null)
+                        {
+                            var _image = new Image()
+                            {
+                                Images = Encoding.ASCII.GetBytes(imageBytes)
+                            };
+                            _db.Images.Add(_image);
+                            _db.SaveChanges(); // Save the image to generate its ID
+
+                            var productImage = new ProductImage()
+                            {
+                                ProductId = _product.Id,
+                                ImageId = _image.Id
+                            };
+                            _db.ProductImages.Add(productImage);
+                        }
+                    }
+
+                    _db.SaveChanges(); // Save the changes made to the product images
+                    return Ok(_product); // Return the saved product
+                }
             catch (Exception ex)
             {
              return BadRequest(ex.Message);
             }
+
+            return NoContent();
         }
 
         [HttpDelete("{id}")]

@@ -18,7 +18,7 @@ namespace WebApplication3.Data
                .HasAlternateKey(x => new { x.Id, x.UserId, x.ProductId });
 
             modelBuilder.Entity<Models.ProductImage>()
-                .HasAlternateKey(x => new { x.Id, x.ProductId, x.ImageId });
+                .HasAlternateKey(x => new { x.ProductId, x.ImageId });
         }
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
         public DbSet<Models.User> Users => Set<Models.User>();
